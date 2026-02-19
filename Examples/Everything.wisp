@@ -8,9 +8,9 @@
 // A semicolon ends a statement (newlines/whitespace are ignored by the parser).
 // Private and Public will not be added. maybe in the future
 
-==============================
-src/main.wisp
-==============================
+//==============================
+//src/main.wisp
+//==============================
 
 // If missing compiler assumes latest compatible version.
 // @wisp may only  appear in the file containing app main()
@@ -40,20 +40,35 @@ app main(){
     const name: String = "willow";
     print(name);
 
-    const Product = math.multiply(5,9);
-    print(Product);
+    const multiplyProduct = math.multiply(5,9);
+    print(multiplyProduct);
+
+    const divideProduct = math.divide(9,3);
+    print(divideProduct);
+
+    const minusProduct = math.minus(5,9);
+    print(minusProduct);
+
 
     // calles the add function and store it into added. no type needed because it is defined from add function
     const added = add(6, 8);
     print(added);
 }
 
-==============================
-src/math.wisp
-==============================
+//==============================
+//src/math.wisp
+//==============================
 
 // No @wisp here (only allowed in the app main file)
 
 function multiply(a: Number, b: Number): Number {
     return a * b;
+}
+
+function divide(a: Number, b: Number): Number {
+    return a / b;
+}
+
+function minus(a: Number, b: Number): Number {
+    return a - b;
 }
