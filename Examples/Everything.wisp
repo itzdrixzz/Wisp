@@ -43,6 +43,11 @@ app main(){
     const multiplyProduct = math.multiply(5,9);
     print(multiplyProduct);
 
+    if(name != "William"){
+        print("Your name is willow you dumbass");
+    }
+
+
     const divideProduct = math.divide(9,3);
     print(divideProduct);
 

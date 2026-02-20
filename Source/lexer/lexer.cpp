@@ -64,6 +64,8 @@ static Token lexIdentifierOrKeyword(Lexer& L, char first, int startLine, int sta
         {"import", TokenKind::KwImport},
         {"type", TokenKind::KwType},
         {"function", TokenKind::KwFunction},
+        {"if", TokenKind::KwIf},
+        {"else", TokenKind::KwElse},
         {"return", TokenKind::KwReturn},
         {"app", TokenKind::KwApp},
         {"const", TokenKind::KwConst},
@@ -143,6 +145,8 @@ const char* tokenKindName(TokenKind k) {
         case TokenKind::KwImport: return "KW_IMPORT";
         case TokenKind::KwType: return "KW_TYPE";
         case TokenKind::KwFunction: return "KW_FUNCTION";
+        case TokenKind::KwIf: return "KW_IF";
+        case TokenKind::KwElse: return "KW_ELSE";
         case TokenKind::KwReturn: return "KW_RETURN";
         case TokenKind::KwApp: return "KW_APP";
         case TokenKind::KwConst: return "KW_CONST";
@@ -168,6 +172,14 @@ const char* tokenKindName(TokenKind k) {
         case TokenKind::Star: return "STAR";
         case TokenKind::Slash: return "SLASH";
         case TokenKind::Equal: return "EQUAL";
+        case TokenKind::Less: return "LESS";
+        case TokenKind::Greater: return "GREATER";
+
+        case TokenKind::EqualEqual: return "EQUALEQUAL";
+        case TokenKind::LessEqual: return "LESSEQUAL";
+        case TokenKind::GreaterEqual: return "GREATEREQUAL";
+        case TokenKind::NotEqual: return "NOTEQUAL";
+
     }
     return "???";
 }
@@ -199,6 +211,28 @@ Token Lexer::next() {
         return lexString(*this, startLine, startCol);
     }
 
+    if (c == '=' && peek(*this) == '='){
+        advance(*this);
+        return makeToken(TokenKind::EqualEqual, "==", startLine, startCol, line, col);
+    }
+
+    if (c == '<' && peek(*this) == '=') {
+        advance(*this);
+        return makeToken(TokenKind::LessEqual, "<=", startLine, startCol, line, col);
+    }
+
+    if (c == '>' && peek(*this) == '=') {
+        advance(*this);
+        return makeToken(TokenKind::GreaterEqual, ">=", startLine, startCol, line, col);
+    }
+
+    if (c == '!' && peek(*this) == '=') {
+        advance(*this);
+        return makeToken(TokenKind::NotEqual, "!=", startLine, startCol, line, col);
+    }
+
+
+
     switch (c) {
         case '@': return makeToken(TokenKind::At, "@", startLine, startCol, line, col);
 
@@ -217,6 +251,8 @@ Token Lexer::next() {
         case '*': return makeToken(TokenKind::Star, "*", startLine, startCol, line, col);
         case '/': return makeToken(TokenKind::Slash, "/", startLine, startCol, line, col);
         case '=': return makeToken(TokenKind::Equal, "=", startLine, startCol, line, col);
+        case '<': return makeToken(TokenKind::Less, "<", startLine, startCol, line, col);
+        case '>': return makeToken(TokenKind::Greater, ">", startLine, startCol, line, col);
 
     }
 

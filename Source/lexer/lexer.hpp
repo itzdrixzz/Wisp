@@ -7,6 +7,8 @@ enum class TokenKind {
     KwImport,
     KwType,
     KwFunction,
+    KwIf,
+    KwElse,
     KwReturn,
     KwApp,
     KwConst,
@@ -20,6 +22,7 @@ enum class TokenKind {
     LBrace, RBrace,
     Comma, Dot, Colon, Semicolon,
     Plus, Star, Equal, Slash, Minus,
+    EqualEqual, LessEqual, GreaterEqual, Less, Greater, NotEqual,
 };
 
 const char* tokenKindName(TokenKind k);
